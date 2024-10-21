@@ -1,5 +1,9 @@
-import SideNav from '@/app/'
-export default function RootLayout() {
-  return <div>
-  </div>;
+import React from 'react'
+
+const layout = () => {
+  return (
+    <div>layout</div>
+  )
 }
+
+export default layout
