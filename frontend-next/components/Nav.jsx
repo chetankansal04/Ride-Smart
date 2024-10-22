@@ -8,18 +8,11 @@ import { MdOutlineClose } from "react-icons/md";
 const Nav = () => {
   const [isOpen, setIsOpen] = useState(false);
   return (
-    <div className="sticky top-0 justify-between bg-black flex sm:text-base lg:text-lg text-zinc-100 font-semibold py-2 px-4 md:px-10">
-
+    <div className="sticky top-0 justify-between bg-black flex sm:text-base lg:text-lg text-zinc-100 font-semibold py-4 px-4 md:px-10 md:py-6">
       {/* Mobile Navbar */}
 
-      <div className="sm:hidden">
-        <Image
-          className=" flex object-contain rounded-full"
-          src="/artwork.png"
-          width={42}
-          height={42}
-          alt="logo"
-        />
+      <div className="flex sm:hidden items-center border-2">
+        <p className="px-2 font-light text-lg">FareWay</p>
       </div>
       <div className="sm:hidden flex items-center gap-6">
         <Link href="/login">
@@ -66,36 +59,29 @@ const Nav = () => {
 
       {/* // DeskTop Navbar  */}
 
-      
-      <div className="hidden sm:flex items-center gap-4">
-        <div>
-          <Image
-            className="flex object-contain rounded-full"
-            src="/artwork.png"
-            width={50}
-            height={50}
-            alt="logo"
-          />
+      <div className="hidden sm:flex   gap-4">
+        <div className="flex items-center border-2">
+          <p className="px-2 font-light text-lg">FareWay</p>
         </div>
-        <div className="flex pl-8 md:pl-12 sm:gap-8 md:gap-16 lg:gap-20 ">
-        <Link
-          className="transition hover:scale-105 active:text-blue-400"
-          href="/book"
-        >
-          Ride
-        </Link>
-        <Link
-          className="transition hover:scale-105 active:text-blue-400"
-          href="/about"
-        >
-          About
-        </Link>
-        <Link
-          className="transition hover:scale-105 active:text-blue-400"
-          href="/services"
-        >
-          Services
-        </Link>
+        <div className="flex pl-10 md:pl-12 sm:gap-8 md:gap-16 lg:gap-20 items-center">
+          <Link
+            className="transition hover:scale-105 active:text-blue-400"
+            href="/book"
+          >
+            Ride
+          </Link>
+          <Link
+            className="transition hover:scale-105 active:text-blue-400"
+            href="/about"
+          >
+            About
+          </Link>
+          <Link
+            className="transition hover:scale-105 active:text-blue-400"
+            href="/services"
+          >
+            Services
+          </Link>
         </div>
       </div>
       <div className="hidden sm:flex gap-4 items-center">
