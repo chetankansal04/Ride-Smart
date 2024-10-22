@@ -11,8 +11,8 @@ const Nav = () => {
     <div className="sticky top-0 justify-between bg-black flex sm:text-base lg:text-lg text-zinc-100 font-semibold py-4 px-4 md:px-10 md:py-6">
       {/* Mobile Navbar */}
 
-      <div className="flex sm:hidden items-center border-2">
-        <p className="px-2 font-light text-lg">FareWay</p>
+      <div className="flex sm:hidden items-center scale-125">
+      <Image src="/Logo.svg" width={60} height={60} alt="logo"></Image>
       </div>
       <div className="sm:hidden flex items-center gap-6">
         <Link href="/login">
@@ -59,9 +59,9 @@ const Nav = () => {
 
       {/* // DeskTop Navbar  */}
 
-      <div className="hidden sm:flex   gap-4">
-        <div className="flex items-center border-2">
-          <p className="px-2 font-light text-lg">FareWay</p>
+      <div className="hidden sm:flex gap-4">
+        <div className="flex items-center scale-125 ">
+          <Image src="/Logo.svg" width={60} height={60} alt="logo"></Image>
         </div>
         <div className="flex pl-10 md:pl-12 sm:gap-8 md:gap-16 lg:gap-20 items-center">
           <Link
