@@ -1,4 +1,6 @@
 "use client";
+import { useUser } from "@auth0/nextjs-auth0/client";
+import { Island_Moments } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
@@ -7,22 +9,44 @@ import { MdOutlineClose } from "react-icons/md";
 
 const Nav = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const { user, isLoading, error } = useUser();
+
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>{error.message}</div>;
   return (
     <div className="sticky top-0 justify-between bg-black flex sm:text-base lg:text-lg text-zinc-100 font-semibold py-4 px-4 md:px-10 md:py-6">
       {/* Mobile Navbar */}
 
       <div className="flex sm:hidden items-center scale-125">
-      <Image src="/Logo.svg" width={60} height={60} alt="logo"></Image>
+        <Link href="/">
+          <Image
+            src="/Logo.svg"
+            width={60}
+            height={60}
+            alt="logo"
+            className="transition hover:scale-110"
+          ></Image>
+        </Link>
       </div>
-      <div className="sm:hidden flex items-center gap-6">
-        <Link href="/login">
-          <button className="transition hover:scale-110">Log In</button>
-        </Link>
-        <Link href="/register">
-          <button className="transition hover:scale-110 border-2 px-2 py-1 rounded-xl">
-            Sign In
-          </button>
-        </Link>
+      <div className="sm:hidden flex items-center gap-4">
+        {!user && (
+          <a href="/api/auth/login">
+            <button className="outline-none transition hover:scale-110 border-2 px-2 py-1 rounded-xl">
+              Sign In
+            </button>
+          </a>
+        )}
+        {user && (
+          <Link href="/profile">
+            <img
+              src={user?.picture}
+              width={50}
+              height={50}
+              alt={user?.name}
+              className="rounded-full hover:scale-110 transition"
+            />
+          </Link>
+        )}
         <button onClick={() => setIsOpen((prev) => !prev)}>
           {isOpen && (
             <MdOutlineClose className="transition hover:scale-110 size-6" />
@@ -32,8 +56,8 @@ const Nav = () => {
           )}
         </button>
         {isOpen && (
-          <div className="scale-110 rounded-md fixed top-20 right-4 pl-10 shadow-lg pr-2 py-4 transition delay-200 bg-black">
-            <div className="flex items-end p-2 gap-y-6 flex-col transition delay-200">
+          <div className="scale-110 rounded-md fixed top-24 right-6 pl-10 text-lg shadow-lg shadow-zinc-700 pr-2 py-3 transition bg-zinc-100 text-black">
+            <div className="flex items-end p-2 gap-y-4 flex-col transition delay-200">
               <Link
                 className="transition hover:scale-105 active:text-blue-400"
                 href="/book"
@@ -61,7 +85,15 @@ const Nav = () => {
 
       <div className="hidden sm:flex gap-4">
         <div className="flex items-center scale-125 ">
-          <Image src="/Logo.svg" width={60} height={60} alt="logo"></Image>
+          <Link href="/">
+            <Image
+              src="/Logo.svg"
+              width={60}
+              height={60}
+              alt="logo"
+              className="transition hover:scale-110"
+            ></Image>
+          </Link>
         </div>
         <div className="flex pl-10 md:pl-12 sm:gap-8 md:gap-16 lg:gap-20 items-center">
           <Link
@@ -84,15 +116,25 @@ const Nav = () => {
           </Link>
         </div>
       </div>
-      <div className="hidden sm:flex gap-4 items-center">
-        <Link href="/login">
-          <button className="transition hover:scale-110">Log In</button>
-        </Link>
-        <Link href="/register">
-          <button className="transition hover:scale-110 border-2 px-2 py-1 rounded-xl">
-            Sign In
-          </button>
-        </Link>
+      <div className="hidden sm:flex gap-6 items-center ">
+        {!user && (
+          <a href="/api/auth/login">
+            <button className="outline-none transition hover:scale-110 border-2 px-2 py-1 rounded-xl">
+              Sign In
+            </button>
+          </a>
+        )}
+        {user && (
+          <Link href="/profile">
+            <img
+              src={user?.picture}
+              width={50}
+              height={50}
+              alt={user?.name}
+              className="rounded-full hover:scale-110 transition"
+            />
+          </Link>
+        )}
       </div>
     </div>
   );

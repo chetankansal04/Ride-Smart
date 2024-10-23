@@ -1,16 +1,27 @@
-'use client'
+"use client";
 import Link from "next/link";
 import { useState } from "react";
 import { CiMapPin } from "react-icons/ci";
 
 export default function Home() {
-  const [locationData, setLocationData] = useState(
-    {
-      pickupLocation: "",
-      dropLocation:"",
-      passengers:"",
-    }
-  )
+  const [locationData, setLocationData] = useState({
+    pickup: "",
+    destination: "",
+    date: new Date(),
+    time: new Date().getTime(),
+  });
+
+  const handleDataChange = (e) => {
+    e.preventDefault();
+    setLocationData({ ...locationData, [e.target.id]: e.target.value });
+    console.log(e.target.value);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(locationData);
+  };
+
   return (
     <div className="min-h-dvh">
       <div className="flex bg-black flex-col p-10 sm:p-10 md:p-10 items-center">
@@ -22,16 +33,21 @@ export default function Home() {
             Compare prices from popular cab booking apps, find the best deal and
             save time and money.
           </p>
-          <div className="flex flex-col my-10 gap-y-5 sm:w-4/5 md:w-3/5">
+          <form
+            onSubmit={handleSubmit}
+            className="flex flex-col my-10 gap-y-5 sm:w-4/5 md:w-3/5"
+          >
             <div className="flex bg-white h-12 w-full  border items-center hover:border-b-zinc-800">
               <CiMapPin className="text-black size-8" />
               <input
                 id="pickup"
+                value={locationData.pickup}
                 type="search"
                 name="pickup"
+                onChange={handleDataChange}
                 placeholder="Pick Up Location"
                 aria-label="Search Pick up Location"
-                className="px-5  focus:bg-white outline-none border-none focus:caret-black"
+                className="px-5  focus:bg-white outline-none text-black border-none focus:caret-black"
               />
             </div>
             <div className="flex bg-white h-12 w-full border items-center hover:border-b-zinc-800">
@@ -39,13 +55,16 @@ export default function Home() {
               <input
                 id="pickup"
                 type="search"
+                value={locationData.destination}
                 name="pickup"
+                onChange={handleDataChange}
                 placeholder="Drop Location"
                 aria-label="Search Drop Location"
-                className="px-5 focus:bg-white outline-none border-none focus:caret-black"
+                className="px-5 focus:bg-white outline-none border-none focus:caret-black text-black"
               />
             </div>
-          </div>
+            <button type="submit" name="Submit"></button>
+          </form>
         </div>
       </div>
       <div className="">
