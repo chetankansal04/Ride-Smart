@@ -2,13 +2,14 @@
 import Link from "next/link";
 import { useState } from "react";
 import { CiMapPin } from "react-icons/ci";
+import {DatePicker} from "@nextui-org/react";
 
 export default function Home() {
   const [locationData, setLocationData] = useState({
     pickup: "",
     destination: "",
-    date: new Date(),
-    time: new Date().getTime(),
+    date: "",
+    time: "",
   });
 
   const handleDataChange = (e) => {
@@ -63,7 +64,10 @@ export default function Home() {
                 className="px-5 focus:bg-white outline-none border-none focus:caret-black text-black"
               />
             </div>
-            <button type="submit" name="Submit"></button>
+            <DatePicker label="Birth date" className="max-w-[284px]" />
+            <div className="bg-zinc-100 text-black flex justify-center">
+            <button type="submit" className="p-2" value="Submit">Submit</button>
+            </div>
           </form>
         </div>
       </div>

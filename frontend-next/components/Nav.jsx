@@ -1,18 +1,14 @@
 "use client";
 import { useUser } from "@auth0/nextjs-auth0/client";
-import { Island_Moments } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
 import { CiMenuFries } from "react-icons/ci";
 import { MdOutlineClose } from "react-icons/md";
+import ProfilePicture from "./ProfilePicture";
 
 const Nav = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { user, isLoading, error } = useUser();
-
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>{error.message}</div>;
   return (
     <div className="sticky top-0 justify-between bg-black flex sm:text-base lg:text-lg text-zinc-100 font-semibold py-4 px-4 md:px-10 md:py-6">
       {/* Mobile Navbar */}
@@ -29,24 +25,7 @@ const Nav = () => {
         </Link>
       </div>
       <div className="sm:hidden flex items-center gap-4">
-        {!user && (
-          <a href="/api/auth/login">
-            <button className="outline-none transition hover:scale-110 border-2 px-2 py-1 rounded-xl">
-              Sign In
-            </button>
-          </a>
-        )}
-        {user && (
-          <Link href="/profile">
-            <img
-              src={user?.picture}
-              width={50}
-              height={50}
-              alt={user?.name}
-              className="rounded-full hover:scale-110 transition"
-            />
-          </Link>
-        )}
+        <ProfilePicture />
         <button onClick={() => setIsOpen((prev) => !prev)}>
           {isOpen && (
             <MdOutlineClose className="transition hover:scale-110 size-6" />
@@ -117,24 +96,7 @@ const Nav = () => {
         </div>
       </div>
       <div className="hidden sm:flex gap-6 items-center ">
-        {!user && (
-          <a href="/api/auth/login">
-            <button className="outline-none transition hover:scale-110 border-2 px-2 py-1 rounded-xl">
-              Sign In
-            </button>
-          </a>
-        )}
-        {user && (
-          <Link href="/profile">
-            <img
-              src={user?.picture}
-              width={50}
-              height={50}
-              alt={user?.name}
-              className="rounded-full hover:scale-110 transition"
-            />
-          </Link>
-        )}
+        <ProfilePicture />
       </div>
     </div>
   );
