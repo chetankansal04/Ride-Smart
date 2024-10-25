@@ -6,3 +6,15 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+[data-slot="content"] {
+  background-color: white !important; /* White background for the grid */
+  border-collapse: collapse !important;
+  transition: opacity 0.3s ease-in-out;
+}
+[data-slot="segment"] {
+  @apply hover:bg-gray-400
+}
+[data-slot="selector-button"] {
+  @apply hidden
+}
+

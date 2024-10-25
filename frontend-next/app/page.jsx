@@ -2,7 +2,9 @@
 import Link from "next/link";
 import { useState } from "react";
 import { CiMapPin } from "react-icons/ci";
-import {DatePicker} from "@nextui-org/react";
+import { DatePicker, TimeInput } from "@nextui-org/react";
+import { getLocalTimeZone, Time, today } from "@internationalized/date";
+import GooglePlacesAutocomplete from "react-google-places-autocomplete";
 
 export default function Home() {
   const [locationData, setLocationData] = useState({
@@ -40,33 +42,61 @@ export default function Home() {
           >
             <div className="flex bg-white h-12 w-full  border items-center hover:border-b-zinc-800">
               <CiMapPin className="text-black size-8" />
-              <input
-                id="pickup"
-                value={locationData.pickup}
-                type="search"
-                name="pickup"
-                onChange={handleDataChange}
-                placeholder="Pick Up Location"
-                aria-label="Search Pick up Location"
-                className="px-5  focus:bg-white outline-none text-black border-none focus:caret-black"
+              <GooglePlacesAutocomplete
+                apiKey={process.env.NEXT_PUBLIC_GOOGLE_API_KEY}
+                selectProps={{
+                  placeholder: "Pick Up Location",
+                  value: locationData.pickup,
+                  className:
+                    "px-5  focus:bg-white outline-none text-black border-none focus:caret-black",
+                  onChange: (value) => handleDataChange("pickup", value),
+                  
+                }}
               />
             </div>
             <div className="flex bg-white h-12 w-full border items-center hover:border-b-zinc-800">
               <CiMapPin className="text-black size-8" />
-              <input
-                id="pickup"
-                type="search"
-                value={locationData.destination}
-                name="pickup"
-                onChange={handleDataChange}
-                placeholder="Drop Location"
-                aria-label="Search Drop Location"
-                className="px-5 focus:bg-white outline-none border-none focus:caret-black text-black"
+              <GooglePlacesAutocomplete
+                apiKey={process.env.NEXT_PUBLIC_GOOGLE_API_KEY}
+                selectProps={{
+                  placeholder: "Drop Location",
+                  value: locationData.pickup,
+                  className:
+                    "px-5 focus:bg-white outline-none text-black border-none focus:caret-black",
+                  onChange: (value) => handleDataChange("drop", value),
+                }}
               />
             </div>
-            <DatePicker label="Birth date" className="max-w-[284px]" />
-            <div className="bg-zinc-100 text-black flex justify-center">
-            <button type="submit" className="p-2" value="Submit">Submit</button>
+            <div>
+              <div className="grid grid-cols-2 gap-2 ">
+                <div className="flex-col gap-1 bg-zinc-100 text-black flex">
+                  <DatePicker
+                    label="Date"
+                    minValue={today(getLocalTimeZone())}
+                    defaultValue={today(getLocalTimeZone()).subtract({
+                      days: 1,
+                    })}
+                    className="flex justify-center"
+                  />
+                </div>
+                <TimeInput
+                  label="Time"
+                  className=" flex justify-center bg-zinc-100 text-black"
+                  defaultValue={new Time(8)}
+                />
+              </div>
+              <p className="text-sm text-right bg-black text-white">
+                *Use up & down key
+              </p>
+            </div>
+            <div className="">
+              <button
+                type="submit"
+                className="p-2 w-full bg-zinc-100  text-black flex justify-center"
+                value="Submit"
+              >
+                Submit
+              </button>
             </div>
           </form>
         </div>

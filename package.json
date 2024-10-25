@@ -2,6 +2,7 @@
   "dependencies": {
     "@nextui-org/react": "^2.4.8",
     "framer-motion": "^11.11.9",
-    "nextui-cli": "^0.3.4"
+    "nextui-cli": "^0.3.4",
+    "react-google-autocomplete": "^2.7.3"
   }
 }
