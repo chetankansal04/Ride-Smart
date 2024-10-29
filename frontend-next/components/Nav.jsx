@@ -9,7 +9,7 @@ import ProfilePicture from "./ProfilePicture";
 const Nav = () => {
   const [isOpen, setIsOpen] = useState(false);
   return (
-    <div className="sticky top-0 justify-between bg-black flex sm:text-base lg:text-lg text-zinc-100 font-semibold py-4 px-4 md:px-10 md:py-6">
+    <div className="z-10 sticky top-0 justify-between bg-black flex sm:text-base lg:text-lg text-zinc-100 font-semibold py-2 px-4">
       {/* Mobile Navbar */}
 
       <div className="flex sm:hidden items-center scale-125">
@@ -19,7 +19,7 @@ const Nav = () => {
             width={60}
             height={60}
             alt="logo"
-            className="transition hover:scale-110"
+            className="transition hover:opacity-80"
           ></Image>
         </Link>
       </div>
@@ -34,7 +34,7 @@ const Nav = () => {
           )}
         </button>
         {isOpen && (
-          <div className="scale-110 rounded-md fixed top-24 right-6 pl-10 text-lg shadow-lg shadow-zinc-700 pr-2 py-3 transition bg-zinc-100 text-black">
+          <div className="scale-110 rounded-md fixed top-24 right-6 pl-10 text-lg shadow-lg shadow-zinc-700 pr-2 py-3 transition bg-black text-white">
             <div className="flex items-end p-2 gap-y-4 flex-col transition delay-200">
               <Link
                 className="transition hover:scale-105 active:text-blue-400"
@@ -69,7 +69,7 @@ const Nav = () => {
               width={60}
               height={60}
               alt="logo"
-              className="transition hover:scale-110"
+              className="transition hover:opacity-80"
             ></Image>
           </Link>
         </div>

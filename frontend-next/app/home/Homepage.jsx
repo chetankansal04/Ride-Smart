@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useContext, useState } from "react";
-import { CiMapPin } from "react-icons/ci";
+import { CiMapPin, CiFlag1 } from "react-icons/ci";
 // import { DatePicker, TimeInput } from "@nextui-org/react";
 // import { getLocalTimeZone, Time, today } from "@internationalized/date";
 import GooglePlacesAutocomplete from "react-google-places-autocomplete";
@@ -18,7 +18,7 @@ export default function Homepage() {
   const { pickup, setPickup } = useContext(PickupContext);
   const { destination, setDestination } = useContext(DropContext);
 
-  const getLatAndLong = (place, type) => {
+  const getLatAndLng = (place, type) => {
     const placeId = place.value.place_id;
     const service = new google.maps.places.PlacesService(
       document.createElement("div")
@@ -32,6 +32,7 @@ export default function Homepage() {
             name: place.formatted_address,
             label: place.name,
           });
+          setPlace((prev) => ({ ...prev, pickup: place.value }));
         } else if (type == "destination") {
           setDestination({
             lat: place.geometry.location.lat(),
@@ -39,6 +40,7 @@ export default function Homepage() {
             name: place.formatted_address,
             label: place.name,
           });
+          setPlace((prev) => ({ ...prev, destination: place.value }));
         }
       } else {
         console.log("Place not found");
@@ -47,10 +49,10 @@ export default function Homepage() {
   };
 
   return (
-    <div className="min-h-dvh">
-      <div className="flex bg-black flex-col p-10 sm:p-10 md:p-10 items-center">
-        <div className="flex flex-col md:flex-row md:w-full lg:w-4/5 gap-x-5">
-          <div className="sm:w-4/5 md:3/5 lg:2/5 flex flex-col text-zinc-100 gap-y-4">
+    <div className="flex flex-col">
+      <div className="flex bg-white flex-col p-10 sm:p-10 md:p-10 items-center">
+        <div className="flex flex-col md:flex-row md:w-full lg:w-4/5 gap-x-5 items-center">
+          <div className="sm:w-4/5 md:3/5 lg:2/5 flex flex-col text-zinc-900 gap-y-4">
             <h1 className=" text-3xl font-bold">
               Book rides at best price with FareWay
             </h1>
@@ -60,10 +62,9 @@ export default function Homepage() {
             </p>
 
             <div className="flex flex-col my-5 pr-10 gap-y-5 w-full">
-              <div className="flex rounded-md bg-white h-12 w-full  border items-center hover:border-b-zinc-800">
+              <div className="flex rounded-md bg-white h-12 w-full  border-2 items-center hover:border-zinc-800">
                 <CiMapPin className="text-black size-8 pl-2" />
                 <GooglePlacesAutocomplete
-                  apiKey={process.env.NEXT_PUBLIC_GOOGLE_API_KEY}
                   selectProps={{
                     instanceId: "pickup-location",
                     placeholder: "Pick Up Location",
@@ -84,16 +85,19 @@ export default function Homepage() {
                     className:
                       "px-2 w-full focus:bg-white outline-none text-black border-none focus:caret-black",
                     onChange: (value) => {
-                      getLatAndLong(value, "pickup");
-                      setPlace(value);
+                      if (!value) {
+                        setPlace((prev) => ({ ...prev, pickup: "" }));
+                      } else {
+                        getLatAndLng(value, "pickup");
+                        setPlace(value);
+                      }
                     },
                   }}
                 />
               </div>
-              <div className="flex rounded-md bg-white h-12 w-full border items-center hover:border-b-zinc-800">
-                <CiMapPin className="text-black size-8 pl-2" />
+              <div className="flex rounded-md bg-white h-12 w-full border-2 items-center hover:border-zinc-800">
+                <CiFlag1 className="text-black size-8 pl-2" />
                 <GooglePlacesAutocomplete
-                  apiKey={process.env.NEXT_PUBLIC_GOOGLE_API_KEY}
                   selectProps={{
                     instanceId: "drop-location",
                     placeholder: "Drop Location",
@@ -114,8 +118,12 @@ export default function Homepage() {
                     className:
                       "px-2 w-full focus:bg-white outline-none text-black border-none focus:caret-black",
                     onChange: (value) => {
-                      getLatAndLong(value, "destination");
-                      setPlace(value);
+                      if (!value) {
+                        setPlace((prev) => ({ ...prev, destination: "" }));
+                      } else {
+                        getLatAndLng(value, "destination");
+                        setPlace(value);
+                      }
                     },
                   }}
                 />

@@ -18,8 +18,7 @@ const SearchSection = () => {
   return (
     <div className="">
       <button
-        type="submit"
-        className="p-2 w-full rounded-md bg-zinc-600  text-white flex justify-center transition hover:bg-zinc-700"
+        className="p-2 w-full rounded-md bg-zinc-900  text-white flex justify-center transition hover:bg-zinc-700"
         value="Submit"
       >
         Search

@@ -6,7 +6,7 @@ const Profile = () => {
   const { user } = useUser();
   return (
     <div className="flex justify-center mt-48">
-      <div className="shadow-lg max-w-fit shadow-black bg-black text-zinc-100 flex flex-col items-center px-4 rounded-xl gap-10 md:gap-14 py-8">
+      <div className="shadow-lg max-w-fit shadow-black bg-black text-white flex flex-col items-center px-10 rounded-xl gap-10 md:gap-14 py-8">
         <div className="flex items-center gap-6 sm:gap-10 md:gap-14">
           <img
             src={user?.picture || "/Logo.svg"}
